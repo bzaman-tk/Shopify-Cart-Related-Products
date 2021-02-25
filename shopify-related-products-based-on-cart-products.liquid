@@ -1,0 +1,20 @@
+
+<div class="grid__item"> 
+<ul class="owl-carousel owl-theme">
+	{% for prod in collections.all.products %}
+		{% for item in cart.items %} 
+			{% for tag in item.product.tags %}
+				{% if prod.tags contains tag %}
+					{% if item.product.handle == prod.handle %}
+					{% else %}
+{% assign product = prod %}					
+{% include 'home-product-grid-item', grid_item_width: ' ' %}
+					{% endif %}	
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	{% endfor %}
+</ul>  	
+</div>	
+
+ 

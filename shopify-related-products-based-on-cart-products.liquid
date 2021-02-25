@@ -1,14 +1,14 @@
 
 <div class="grid__item"> 
 <ul class="owl-carousel owl-theme">
-	{% for prod in collections.all.products %}
-		{% for item in cart.items %} 
-			{% for tag in item.product.tags %}
-				{% if prod.tags contains tag %}
-					{% if item.product.handle == prod.handle %}
+	{% for prod in collections.all.products %} <!-- Get All Product --> 
+		{% for item in cart.items %} <!-- Checking cart Products -->
+			{% for tag in item.product.tags %} <!-- Checking tags in each Cart Product -->
+				{% if prod.tags contains tag %} <!-- Checking that the Current product has the tag as Cart Product -->
+					{% if item.product.handle == prod.handle %} <!-- Escape if the product is in cart -->
 					{% else %}
-{% assign product = prod %}					
-{% include 'home-product-grid-item', grid_item_width: ' ' %}
+					<!-- Call the product info, title, url, images, etc -->	
+						{{ prod.title }}
 					{% endif %}	
 				{% endif %}
 			{% endfor %}

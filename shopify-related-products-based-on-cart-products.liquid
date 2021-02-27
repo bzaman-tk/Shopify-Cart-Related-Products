@@ -1,14 +1,22 @@
 
 <div class="grid__item"> 
+{% assign rltdprd = "" %} <!-- Store Product Handle -->
 <ul class="owl-carousel owl-theme">
 	{% for prod in collections.all.products %} <!-- Get All Product --> 
 		{% for item in cart.items %} <!-- Checking cart Products -->
 			{% for tag in item.product.tags %} <!-- Checking tags in each Cart Product -->
 				{% if prod.tags contains tag %} <!-- Checking that the Current product has the tag as Cart Product -->
-					{% if item.product.handle == prod.handle %} <!-- Escape if the product is in cart -->
-					{% else %}
-					<!-- Call the product info, title, url, images, etc -->	
-						{{ prod.title }} 
+					{% assign rltdprd2 = rltdprd | split: ',' %}
+					{% if rltdprd2 contains prod.handle %}
+						<!-- escape if the product has been called -->
+					{%else%}
+						{% if item.product.handle == prod.handle %} <!-- Escape if the product is in cart -->
+						{% else %}
+							{% assign rltdprd = "," | append: rltdprd %} <!-- add separator -->
+							{% assign rltdprd = prod.handle | append: rltdprd %} <!-- add the printed product to array -->
+							
+							{{ prod.title }} <!-- Call the product info, title, url, images, etc -->	
+						{% endif %}	
 					{% endif %}	
 				{% endif %}
 			{% endfor %}
